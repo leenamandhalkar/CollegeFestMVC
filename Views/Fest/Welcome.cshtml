@@ -1,0 +1,36 @@
+@{
+    ViewData["Title"] = "Welcome";
+}
+
+<div class="container mt-5">
+    <div class="p-5 text-center bg-light rounded shadow">
+
+        <h1 class="display-5 text-primary">
+            Welcome to AMTICS Technical Fest!
+        </h1>
+
+        <p class="lead mt-3">
+            Explore technology, showcase your talent,
+            and participate in exciting technical events.
+        </p>
+
+        <hr />
+
+        <p>
+            Coding Competition | Web Development |
+            Tech Quiz | Robotics
+        </p>
+
+        <a asp-controller="Fest"
+           asp-action="Register"
+           class="btn btn-success btn-lg">
+            Register Now
+        </a>
+
+        <a asp-controller="Fest"
+           asp-action="Index"
+           class="btn btn-primary btn-lg">
+            View Participants
+        </a>
+    </div>
+</div>

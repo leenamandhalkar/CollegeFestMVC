@@ -1,0 +1,99 @@
+@model IEnumerable<CollegeFestMVC.Models.Participant>
+@using CollegeFestMVC.Extensions
+
+@{
+    ViewData["Title"] = "Participants";
+}
+
+<div class="container mt-5">
+
+    <h2 class="text-center text-primary mb-4">
+        AMTICS Technical Fest Participants
+    </h2>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Success"]
+        </div>
+    }
+
+    <div class="mb-3">
+        <a asp-action="Register"
+           class="btn btn-primary">
+            New Registration
+        </a>
+
+        <a asp-action="Welcome"
+           class="btn btn-dark">
+            Welcome Page
+        </a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Department</th>
+                    <th>Year</th>
+                    <th>Event</th>
+                    <th>Status</th>
+                    <th>Fee</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var p in Model)
+                {
+                    <tr>
+                        <td>@p.ParticipantId</td>
+                        <td>@p.ParticipantName</td>
+                        <td>@p.Email</td>
+                        <td>@p.Department</td>
+                        <td>@p.Year</td>
+                        <td>@p.EventName</td>
+
+                        <td>
+                            @if (p.GetRegistrationStatus() == "Confirmed")
+                            {
+                                <span class="badge bg-success">
+                                    Confirmed
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning text-dark">
+                                    Pending
+                                </span>
+                            }
+                        </td>
+
+                        <td>
+                            ₹@((p.RegistrationFee ?? 0).ToString("0.00"))
+                        </td>
+
+                        <td>
+                            <a asp-action="Details"
+                               asp-route-id="@p.ParticipantId"
+                               class="btn btn-info btn-sm">
+                                Details
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            No participants registered yet.
+            Click New Registration to begin.
+        </div>
+    }
+</div>

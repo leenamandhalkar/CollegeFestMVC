@@ -1,0 +1,79 @@
+@model CollegeFestMVC.Models.Participant
+@using CollegeFestMVC.Extensions
+
+@{
+    ViewData["Title"] = "Participant Details";
+    string status = Model.GetRegistrationStatus();
+}
+
+<div class="container mt-5">
+    <div class="card shadow mx-auto" style="max-width: 650px;">
+
+        <div class="card-header bg-primary text-white">
+            <h3>Participant Details</h3>
+        </div>
+
+        <div class="card-body">
+
+            @if (status == "Confirmed")
+            {
+                <div class="alert alert-success">
+                    Registration Confirmed Successfully!
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-warning">
+                    Registration Pending.
+                </div>
+            }
+
+            <h4 class="text-success">
+                Welcome, @Model.ParticipantName!
+            </h4>
+
+            <p>
+                You are registered for
+                <strong>@Model.EventName</strong>.
+            </p>
+
+            <hr />
+
+            <p><strong>ID:</strong> @Model.ParticipantId</p>
+            <p><strong>Name:</strong> @Model.ParticipantName</p>
+            <p><strong>Email:</strong> @Model.Email</p>
+            <p><strong>Department:</strong> @Model.Department</p>
+            <p><strong>Year:</strong> @Model.Year</p>
+            <p><strong>Event:</strong> @Model.EventName</p>
+
+            <p>
+                <strong>Team Event:</strong>
+                @(Model.IsTeamEvent ? "Yes" : "No")
+            </p>
+
+            <p>
+                <strong>Status:</strong> @status
+            </p>
+
+            <p>
+                <strong>Registration Fee:</strong>
+                ₹@((Model.RegistrationFee ?? 0).ToString("0.00"))
+            </p>
+
+            <p>
+                <strong>Fee Category:</strong>
+                @Model.GetFeeCategory()
+            </p>
+
+            <a asp-action="Index"
+               class="btn btn-secondary">
+                Back to Participants
+            </a>
+
+            <a asp-action="Register"
+               class="btn btn-primary">
+                Register Another
+            </a>
+        </div>
+    </div>
+</div>

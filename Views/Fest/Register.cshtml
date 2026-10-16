@@ -1,0 +1,124 @@
+@model CollegeFestMVC.Models.Participant
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@{
+    ViewData["Title"] = "Fest Registration";
+}
+
+<div class="container mt-5">
+    <div class="card shadow p-4 mx-auto" style="max-width: 650px;">
+
+        <h2 class="text-center text-primary mb-4">
+            AMTICS Technical Fest Registration
+        </h2>
+
+        <form asp-controller="Fest"
+              asp-action="Register"
+              method="post">
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="ParticipantName"
+                       class="form-label">
+                    Participant Name
+                </label>
+
+                <input asp-for="ParticipantName"
+                       class="form-control"
+                       placeholder="Enter your name" />
+
+                <span asp-validation-for="ParticipantName"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Email"
+                       class="form-label">Email</label>
+
+                <input asp-for="Email"
+                       class="form-control"
+                       placeholder="Enter email" />
+
+                <span asp-validation-for="Email"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Department"
+                       class="form-label">Department</label>
+
+                <select asp-for="Department"
+                        class="form-select">
+                    <option value="">Select Department</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="IT">Information Technology</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Mechanical">Mechanical</option>
+                </select>
+
+                <span asp-validation-for="Department"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Year"
+                       class="form-label">Academic Year</label>
+
+                <select asp-for="Year" class="form-select">
+                    <option value="">Select Year</option>
+                    <option value="First Year">First Year</option>
+                    <option value="Second Year">Second Year</option>
+                    <option value="Third Year">Third Year</option>
+                    <option value="Fourth Year">Fourth Year</option>
+                </select>
+
+                <span asp-validation-for="Year"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="EventName"
+                       class="form-label">Select Event</label>
+
+                <select asp-for="EventName"
+                        class="form-select"
+                        asp-items="@(new SelectList(
+                            ViewBag.Events,
+                            "EventName",
+                            "EventName"))">
+                    <option value="">Choose Event</option>
+                </select>
+
+                <span asp-validation-for="EventName"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="form-check mb-3">
+                <input asp-for="IsTeamEvent"
+                       class="form-check-input" />
+
+                <label asp-for="IsTeamEvent"
+                       class="form-check-label">
+                    This is a team event
+                </label>
+            </div>
+
+            <button type="submit"
+                    class="btn btn-primary w-100">
+                Register Now
+            </button>
+
+            <a asp-controller="Fest"
+               asp-action="Index"
+               class="btn btn-outline-secondary w-100 mt-2">
+                View Participants
+            </a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
